@@ -1,6 +1,6 @@
 # MambaLithium: Selective state space model for state-of-charge estimation of lithium-ion batteries
 
-Lithium-ion batteries is crucial in electric vehicles and new energy industry. State-of-charge (SOC) are one of the key states of lithium-ion batteries. As Mamba (Structured state space sequence models with selection mechanism and scan module, S6) has achieved remarkable success in sequence modeling tasks, this repository proposes a Mamba-based model to predict the SOC. The design of the model is similar to MambaStock[https://github.com/zshicode/MambaStock] (see Citation).
+Lithium-ion batteries is crucial in electric vehicles and new energy industry. State-of-charge (SOC) are one of the key states of lithium-ion batteries. As Mamba (Structured state space sequence models with selection mechanism and scan module, S6) has achieved remarkable success in sequence modeling tasks, this repository proposes a Mamba-based model to predict the SOC. The design of the model is similar to [MambaStock](https://github.com/zshicode/MambaStock) (see Citation).
 
 ## Requirements
 
