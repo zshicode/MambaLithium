@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error,mean_absolute_error,r2_score
+from sklearn.preprocessing import scale
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -55,7 +56,7 @@ class Net(nn.Module):
             Mamba(self.config),
             Mamba(self.config),
             nn.Linear(args.hidden,out_dim),
-            nn.Tanh()
+            nn.ReLU()
         )
     
     def forward(self,x):
@@ -95,18 +96,11 @@ def ReadData(path,csv):
     data = pd.read_csv(f)
     tf = len(data)
     data['Time'] = data.index
-    x = data[['Current','Voltage','Temperature']].values
-    y = data['SOC']+data['Time']/tf-1
+    x = data[['Current','Voltage','Temperature','Time']].values
+    x = scale(x)
+    y = data['SOC']
     y = y.values
     return x,y
-
-def soc(y):
-    tf = len(y)
-    res = []
-    for i in range(tf):
-        res.append(1+y[i]-i/tf)
-    
-    return res
 
 path = './data/'+args.temp+'C'
 datal = ['DST','FUDS','US06']
@@ -117,8 +111,6 @@ trainX = np.vstack((xt1,xt2))
 trainy = np.hstack((yt1,yt2))
 testX,testy = ReadData(path,args.test+'_'+args.temp+'C.csv')
 predictions = PredictWithData(trainX, trainy, testX)
-testy = soc(testy)
-predictions = soc(predictions)
 print('MSE RMSE MAE R2')
 evaluation_metric(testy, predictions)
 plt.figure()
