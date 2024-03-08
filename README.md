@@ -17,7 +17,7 @@ The RUL and SOH data used in this repository were downloaded from https://github
 
 ## RUL and SOH prediction
 
-Following previous research (Kong et al., 2021; Wen et al., 2023), two datasets named `CaseA` and `CaseB` in the `./data` folder are used for evaluation.
+Following previous research (Kong et al., 2021; Wen et al., 2024), two datasets named `CaseA` and `CaseB` in the `./data` folder are used for evaluation.
 
 RUL prediction
 
@@ -97,7 +97,7 @@ Chen et al., An LSTM-SA model for SOC estimation of lithium-ion batteries under 
 
 Kong et al., Voltage-temperature health feature extraction to improve prognostics and health management of lithium-ion batteries, Energy, 2021
 
-Wen et al., Physics-Informed Neural Networks for Prognostics and Health Management of Lithium-Ion Batteries, IEEE TIV, 2023
+Wen et al., Physics-Informed Neural Networks for Prognostics and Health Management of Lithium-Ion Batteries, IEEE TIV, 2024
 
 Yang et al., State-of-Charge Estimation of Lithium-Ion Batteries via Long Short-Term Memory Network, IEEE Access, 2019
 
