@@ -24,10 +24,10 @@ parser.add_argument('--hidden', type=int, default=16,
                     help='Dimension of representations')
 parser.add_argument('--layer', type=int, default=2,
                     help='Num of layers')
-parser.add_argument('--task', type=str, default='SOH',
-                    help='RUL or SOH')
-parser.add_argument('--case', type=str, default='A',
-                    help='A or B')                    
+parser.add_argument('--test', type=str, default='FUDS',
+                    help='Test set')
+parser.add_argument('--temp', type=str, default='25',
+                    help='Temperature')                    
 
 args = parser.parse_args()
 args.cuda = args.use_cuda and torch.cuda.is_available()
@@ -90,45 +90,32 @@ def PredictWithData(trainX, trainy, testX):
     yhat = mat.detach().numpy().flatten()
     return yhat
 
-def ReadData(path,csv,task):
+def ReadData(path,csv):
     f = os.path.join(path,csv)
     data = pd.read_csv(f)
-    tf = len(data)
-    y = data[task]
+    data['Time'] = data.index
+    y = data['SOC']
     y = y.values
-    if args.task == 'RUL': y = y/tf
-    x = data.drop(['RUL','SOH'],axis=1).values
+    x = data.drop(['SOC','Profile'],axis=1).values
     x = scale(x)
     return x,y
 
-path = './data/Case'+args.case
-if args.case == 'A':
-    xt1, yt1 = ReadData(path,'91.csv',args.task)
-    xt2, yt2 = ReadData(path,'100.csv',args.task)
-    trainX = np.vstack((xt1,xt2))
-    trainy = np.hstack((yt1,yt2))
-    testX,testy = ReadData(path,'124.csv',args.task)
-else:
-    xt1, yt1 = ReadData(path,'101.csv',args.task)
-    xt2, yt2 = ReadData(path,'108.csv',args.task)
-    xt3, yt3 = ReadData(path,'120.csv',args.task)
-    trainX = np.vstack((xt1,xt2,xt3))
-    trainy = np.hstack((yt1,yt2,yt3))
-    testX,testy = ReadData(path,'116.csv',args.task)
-
+path = './data/'+args.temp+'C'
+datal = ['DST','FUDS','US06']
+datal.remove(args.test)
+xt1, yt1 = ReadData(path,datal[0]+'_'+args.temp+'C.csv')
+xt2, yt2 = ReadData(path,datal[1]+'_'+args.temp+'C.csv')
+trainX = np.vstack((xt1,xt2))
+trainy = np.hstack((yt1,yt2))
+testX,testy = ReadData(path,args.test+'_'+args.temp+'C.csv')
 predictions = PredictWithData(trainX, trainy, testX)
-tf = len(testy)
-if args.task == 'RUL':
-    testy = tf*testy
-    predictions = tf*predictions
-
 print('MSE RMSE MAE R2')
 evaluation_metric(testy, predictions)
 plt.figure()
 plt.plot(testy, label='True')
 plt.plot(predictions, label='Estimation')
-plt.title(args.task+' Estimation')
-plt.xlabel('Cycle')
-plt.ylabel(args.task+' value')
+plt.title('SOC Estimation')
+plt.xlabel('Time(sec)')
+plt.ylabel('SOC value')
 plt.legend()
 plt.show()
