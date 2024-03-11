@@ -1,6 +1,6 @@
 # MambaLithium: Selective state space model for remaining-useful-life, state-of-health, and state-of-charge estimation of lithium-ion batteries
 
-Lithium-ion batteries is crucial in electric vehicles and new energy industry. Remaining-useful-life (RUL), state-of-health (SOH) and state-of-charge (SOC) are three key states of lithium-ion batteries. As Mamba (Structured state space sequence models with selection mechanism and scan module, S6) has achieved remarkable success in sequence modeling tasks, this repository proposes a Mamba-based model to predict RUL, SOH and SOC. The design of the model is similar to [MambaStock](https://github.com/zshicode/MambaStock) (see Citation).
+Lithium-ion batteries is crucial in electric vehicles and new energy industry. Remaining-useful-life (RUL), state-of-health (SOH) and state-of-charge (SOC) are three key states of lithium-ion batteries. As Mamba (Structured state space sequence models with selection mechanism and scan module, S6) has achieved remarkable success in sequence modeling tasks, this repository proposes a Mamba-based model to predict RUL, SOH and SOC.
 
 ## Requirements
 
