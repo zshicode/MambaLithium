@@ -104,10 +104,10 @@ Yang et al., State-of-Charge Estimation of Lithium-Ion Batteries via Long Short-
 ## Citation
 
 ```
-@article{shi2024mamba,
-  title={MambaStock: Selective state space model for stock prediction},
+@article{shi2024lithium,
+  title={MambaLithium: Selective state space model for remaining-useful-life, state-of-health, and state-of-charge estimation of lithium-ion batteries},
   author={Zhuangwei Shi},
-  journal={arXiv preprint arXiv:2402.18959},
+  journal={arXiv preprint arXiv:2403.05430},
   year={2024},
 }
 ```
